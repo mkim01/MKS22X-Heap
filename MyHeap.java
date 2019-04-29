@@ -36,6 +36,14 @@ public class MyHeap{
   }
 
   private static void pushUp(int[] data, int index){
+    if ((index - 1) / 2 > 0) {
+      if (data[index] > data[(index - 1) / 2]){
+        int temp = data[index];
+        data[index] = data[(index - 1) / 2];
+        data[(index - 1) / 2] = temp;
+        pushUp(data, (index - 1) / 2);
+      }
+    }
   }
 
 
