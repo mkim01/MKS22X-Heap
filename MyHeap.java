@@ -2,29 +2,28 @@ import java.util.*;
 public class MyHeap{
   private int[] heap;
   private static void pushDown(int[] data, int size, int index){
+  //when there exists two leaves
    if (index * 2 + 2 < size){
-      if (data[index * 2 + 1] > data[index]){
-        //fompare with the left leaf
-        if (data[index * 2 + 2] < data[index * 2 + 1]){
+     // when left leaf is greater than the right
+      if (data[index * 2 + 1] > data[index] && data[index * 2 + 1] > data[index * 2 + 2]){
           int temp = data[index];
           data[index] = data[index * 2 + 1];
           data[index * 2 + 1] = temp;
-          pushDown(data, size, index * 2 + 2);
+          pushDown(data, size, index * 2 + 1);
       }
-      else{
+      //when right leaf is greater than the left
+      else if (data[index * 2 + 2] > data[index]){
         //compare with the right left
-        if (data[index] < data[index * 2 + 2]){
+        // if (data[index] < data[index * 2 + 2]){
           int temp = data[index];
           data[index] = data[index * 2 + 2];
           data[index * 2 + 2] = temp;
           pushDown(data, size, index * 2 + 2);
         }
       }
-    }
-  }
     //when there only exists one leaf
     else if(index * 2 + 1 < size){
-      // there is only a left leaf
+      //only check if the left is greater
       if (data[index] < data[index * 2 + 1]){
         int temp = data[index];
         data[index] = data[index * 2 + 1];
@@ -36,18 +35,17 @@ public class MyHeap{
   }
 
   private static void pushUp(int[] data, int index){
-    if (index != 0 && data[(index - 1)/2] < data[index]) {
-      if (data[index] > data[(index - 1) / 2]){
+    if (index != 0 && data[(index - 1)/2] < data[index]){
         int temp = data[index];
         data[index] = data[(index - 1) / 2];
         data[(index - 1) / 2] = temp;
         pushUp(data, (index - 1) / 2);
       }
-    }
   }
 
   public static void heapify(int[] data){
-    for(int i = data.length /2 ; i >= 0; i--){
+    for(int i = data.length / 2 ; i >= 0; i--){
+      //check by every level, not by each node
       pushDown(data,data.length, i);
     }
   }
@@ -56,6 +54,7 @@ public class MyHeap{
     int n = data.length;
     heapify(data);
     // System.out.println(Arrays.toString(data));
+    //
     while (n > 0){
     // for (int i = data.length - 1; i >= 0; i--){
       int temp = data[0];
@@ -65,6 +64,7 @@ public class MyHeap{
       pushDown(data, n, 0);
     }
   }
+
   public static void main(String[]args){
      System.out.println("Size\t\tMax Value\theapsort/builtin ratio ");
      int[]MAX_LIST = {1000000000,500,10};
