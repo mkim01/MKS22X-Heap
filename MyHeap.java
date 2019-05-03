@@ -1,3 +1,4 @@
+import java.util.*;
 public class MyHeap{
   private int[] heap;
   private static void pushDown(int[] data, int size, int index){
@@ -47,24 +48,16 @@ public class MyHeap{
   }
 
   public static void heapify(int[] data){
-    // for(int i = data.length / 2=; i >= 0;      ----j <- 9){
-    //   pushDown(data,index)
+    for(int i = data.length - 1 ; i >= 0; i--){
+      pushDown(data,data.length, i);
     }
   }
 
   public static void heapsort(int[] data){
-    heapify(data);
-    for (int i = 0; i < data.length; i = i * 2 + 1){
-      pushDown(data, size, i);
-    }
-    for (int i = data.length; i > 0; i = (i - 1) / 2){
-      pushUp(data, i);
-    }
-
+    // heapify(data);
+    // for (int i = 0; i < data.length; i = i * 2 + 1){
+    //   pushDown(data, data.length, i);
+    // }
   }
-
-
-
-
 
 }
